@@ -1,0 +1,1 @@
+# VintageStory.ModInfo.Schema
