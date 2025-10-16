@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/BinToss/VintageStory.ModInfo.schema/main/VintageStory.ModInfo.schema.json",
+  "$schema": "./VintageStory.ModInfo.schema.json",
   "name": "My Example Mod",
   "type": "Content",
   "authors": [],
