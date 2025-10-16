@@ -5,7 +5,7 @@
   "description": "The (unofficial) JSON schema for Vintage Story mods' modinfo.json metadata file.",
   "definitions": {
     "vsSemVer": {
-      "$comment": "A version string compliant with a limited subset of SemVer 2.0. See <https://github.com/search?q=repo%3Aanegostudios/modpeek%20VERSION_REGEX&type=code>.",
+      "$comment": "A version string compliant with a limited subset of SemVer 2.0. For dependency and network versions, this is the _minimum_ compatible version. See <https://github.com/search?q=repo%3Aanegostudios/modpeek%20VERSION_REGEX&type=code>.",
       "type": "string",
       "pattern": "^\\d{1,5}\\.\\d{1,4}\\.\\d{1,4}(?:-(?:rc|pre|dev)\\.\\d{1,4})?$"
     },
@@ -37,7 +37,7 @@
       "description": "List of mods (and versions) this mod depends on.\n\nThe game uses SemVer to compare, so for example \"1.15.0\" > \"1.15.0-rc.3\" > \"1.15.0-rc.2\" > \"1.15.0-pre.1\". You can set the value to an empty string or an asterisk (\"game\": \"*\") to allow compatibility with all versions.\n\nAlthough the game follows the general logic of SemVer, it does not fully implement it. So for `<prerelease>` you can only use `rc > pre > dev`; `<metadata>` is not supported.\n\nAs was touched upon earlier, \"*\" and \"\" match any version of a dependency. Wildcards-pattern version ranges take effect when loading mod dependencies, but have no effect when publishing to the official VS modDB. Ranges such as 1.* and 1.0.* work as expected; The minimum version of '1.*' is 1.0.0 and the minimum version of 1.1.* is 1.1.0. If a prerelease suffix is present in the semver range, the greatest prerelease in that range is loaded (...probably. The mod loader and dependency resolution code appears to be closed-source. -BinToss)",
       "type": "object",
       "additionalProperties": {
-        "$ref": "#/definitions/vsSemVerRange"
+        "$ref": "#/definitions/vsSemVer"
       }
     },
     "description": {
