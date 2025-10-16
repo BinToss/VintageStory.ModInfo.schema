@@ -1,7 +1,7 @@
 {
   "name": "vintagestory-modinfo-schema",
   "private": true,
-  "packageManager": "yarn@4.9.2",
+  "packageManager": "yarn@4.10.3",
   "devDependencies": {
     "@eslint/json": "^0.13.2",
     "@eslint/markdown": "^7.4.0",
