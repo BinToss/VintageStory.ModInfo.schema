@@ -1,0 +1,38 @@
+semver patterns
+Formatted for (and validated with) the `pedrohenrique-ql.regex-match` extension for VSCode/Code-OSS.
+On-hover regex visualizations are provided by regex-vis.com via `pit00.regex-hover`.
+
+exact | See https://github.com/search?q=repo%3Aanegostudios/modpeek%20VERSION_REGEX&type=code
+/^\*?$|^\d{1,5}\.\d{1,4}\.\d{1,4}(?:-(?:rc|pre|dev)\.\d{1,4})?$/gm
+---
+1.0.0
+1.0.0-pre.1
+
+should fail
+1.0.0.pre.1
+1.0.0.develop.1
+---
+
+minver or range. This took some experimenting. Note: this only uses wildcard range conventions already in use in the VS modding community. node-semver-like ranges probably won't work at all.
+/^\*?$|^\d{1,5}\.(?:\*|\d{1,4}\.(?:\*|\d{1,4}(?:-(?:\*|(?:rc|pre|dev)\.(?:\*|\d{1,4})))?))$/gm
+---
+1.0.0
+1.0.0-pre.1
+*
+1.*
+1.0.*
+1.0.0-*
+1.0.0-rc.*
+1.0.0-pre.*
+1.0.0-dev.*
+
+should fail
+1.0.0.pre.1
+1.0.0.develop.1
+3.x
+1.0.0-alpha.*
+1.0.0-beta.*
+1.0.*-dev.*
+1.*.*-dev.*
+
+---

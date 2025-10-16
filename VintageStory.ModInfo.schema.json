@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/BinToss/VintageStory.ModInfo.schema/main/VintageStory.ModInfo.schema.json",
+  "$comment": "https://wiki.vintagestory.at/Modding:Modinfo ",
+  "description": "The (unofficial) JSON schema for Vintage Story mods' modinfo.json metadata file.",
+  "definitions": {
+    "vsSemVer": {
+      "$comment": "A version string compliant with a limited subset of SemVer 2.0. See <https://github.com/search?q=repo%3Aanegostudios/modpeek%20VERSION_REGEX&type=code>.",
+      "type": "string",
+      "pattern": "^\\d{1,5}\\.\\d{1,4}\\.\\d{1,4}(?:-(?:rc|pre|dev)\\.\\d{1,4})?$"
+    },
+    "vsSemVerRange": {
+      "$comment": "The regex pattern for a minimum version or version range.",
+      "type": "string",
+      "pattern": "^\\*?$|^\\d{1,5}\\.(?:\\*|\\d{1,4}\\.(?:\\*|\\d{1,4}(?:-(?:\\*|(?:rc|pre|dev)\\.(?:\\*|\\d{1,4})))?))$"
+    }
+  },
+  "required": [
+    "name",
+    "type"
+  ],
+  "properties": {
+    "authors": {
+      "description": "Names of people working on this mod. (optional)",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contributors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "description": "List of mods (and versions) this mod depends on.\n\nThe game uses SemVer to compare, so for example \"1.15.0\" > \"1.15.0-rc.3\" > \"1.15.0-rc.2\" > \"1.15.0-pre.1\". You can set the value to an empty string or an asterisk (\"game\": \"*\") to allow compatibility with all versions.\n\nAlthough the game follows the general logic of SemVer, it does not fully implement it. So for `<prerelease>` you can only use `rc > pre > dev`; `<metadata>` is not supported.\n\nAs was touched upon earlier, \"*\" and \"\" match any version of a dependency. Wildcards-pattern version ranges take effect when loading mod dependencies, but have no effect when publishing to the official VS modDB. Ranges such as 1.* and 1.0.* work as expected; The minimum version of '1.*' is 1.0.0 and the minimum version of 1.1.* is 1.1.0. If a prerelease suffix is present in the semver range, the greatest prerelease in that range is loaded (...probably. The mod loader and dependency resolution code appears to be closed-source. -BinToss)",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/vsSemVerRange"
+      }
+    },
+    "description": {
+      "description": "A short description of what this mod does. (optional)",
+      "type": "string"
+    },
+    "iconPath": {
+      "description": "The path relative to the mod root to load the icon from. If this is not set, the game will also try to load \"./modicon.png\" before giving up.",
+      "type": "string"
+    },
+    "modId": {
+      "$comment": "The pattern matches the advice on the wiki, but there's no mention of alphanumeric limitations in the API documentation.",
+      "description": "The mod id (domain) of this mod. For example \"myexamplemod\". (Optional. Uses mod name (converted to lowercase, stripped of whitespace and special characters) if missing.)",
+      "type": "string",
+      "pattern": "^[a-z0-9]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of this mod. For example \"My Example Mod\"."
+    },
+    "networkVersion": {
+      "$ref": "#/definitions/vsSemVer",
+      "description": "The network version of this mod. Change this number when a user that has an older version of your mod should not be allowed to connected to server with a newer version. If not set, the version value is used."
+    },
+    "textureSize": {
+      "description": "If the mod is a texture pack that changes topsoil grass textures, define the texture size here",
+      "type": "integer"
+    },
+    "type": {
+      "description": "The type of this mod. Can be \"Theme\", \"Content\" or \"Code\".",
+      "enum": [
+        "Code",
+        "Content",
+        "Theme"
+      ]
+    },
+    "version": {
+      "description": "The version of this mod. For example \"2.10.4\".\n\nThe game uses SemVer <https://semver.org> to compare, so for example \"1.15.0\" > \"1.15.0-rc.3\" > \"1.15.0-rc.2\" > \"1.15.0-pre.1\".\nAlthough the game follows the general logic of SemVer, it does not fully implement it. So for `<prerelease>` you can only use rc > pre > dev; `<metadata>` is not supported.\n\n See <https://github.com/search?q=repo%3Aanegostudios/modpeek%20VERSION_REGEX&type=code>",
+      "examples": [
+        "1.0.0",
+        "0.0.1-rc.1",
+        "0.0.1-pre.1",
+        "0.0.1-dev.1"
+      ],
+      "$ref": "#/definitions/vsSemVer"
+    },
+    "website": {
+      "description": "Location of the website or project site of this mod.",
+      "type": "string"
+    }
+  }
+}
