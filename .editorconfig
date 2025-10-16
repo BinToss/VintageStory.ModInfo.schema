@@ -9,3 +9,5 @@ insert_final_newline = true
 
 [*.{json,jsonc,json5}]
 insert_final_newline = false
+[package.json]
+insert_final_newline = true
