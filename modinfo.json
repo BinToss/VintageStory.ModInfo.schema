@@ -3,6 +3,7 @@
   "name": "My Example Mod",
   "type": "Content",
   "authors": [],
+  "side": "Universal",
   "version": "1.0.0",
   "dependencies": {
     "modid": "1.0.*"

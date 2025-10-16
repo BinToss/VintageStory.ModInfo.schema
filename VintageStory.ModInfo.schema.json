@@ -62,6 +62,15 @@
       "$ref": "#/definitions/vsSemVer",
       "description": "The network version of this mod. Change this number when a user that has an older version of your mod should not be allowed to connected to server with a newer version. If not set, the version value is used."
     },
+    "side": {
+      "description": "Which side(s) this mod runs on. Can be \"Server\", \"Client\" or \"Universal\". Default value = \"Universal\"",
+      "default": "Universal",
+      "enum": [
+        "Client",
+        "Server",
+        "Universal"
+      ]
+    },
     "textureSize": {
       "description": "If the mod is a texture pack that changes topsoil grass textures, define the texture size here",
       "type": "integer"
